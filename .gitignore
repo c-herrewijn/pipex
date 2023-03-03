@@ -1,0 +1,8 @@
+pipex
+tests
+.vscode
+*.a
+*.o
+/obj
+*.out
+*.dsym
