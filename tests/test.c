@@ -4,6 +4,8 @@
 
 int main(void)
 {
-    // test_is_trail_space();
+    test_is_trail_space();
     test_is_separator_space();
+    test_count_words();
+    test_split_argv();
 }

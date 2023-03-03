@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/03 10:02:51 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/03 17:29:41 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,9 @@ typedef struct s_separator_state
 }	t_separator_state;
 
 t_com	**parse_argv(int argc, char *argv[], char *envp[], t_term_fds term_fds);
+char    **split_argv(char *str, size_t *argc);
+bool	is_trail_space(char *str, size_t index);
+bool	is_separator_space(char *str, size_t index);
+size_t	count_words(char *str);
 
 #endif

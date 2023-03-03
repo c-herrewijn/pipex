@@ -33,8 +33,12 @@ static void testing_sep_space(char *str)
 
 void test_is_separator_space(void)
 {
-    testing_sep_space("ab fghil");
+    testing_sep_space("ab  fghil");
     testing_sep_space("   abcde fghil    ");
     testing_sep_space("./'script space.sh'");
     testing_sep_space("awk \"{count++} END {printf \\\"count: \%i\\\" , count}\"");
+    testing_sep_space("wc -c");
+    testing_sep_space("wc 		-c");
+    testing_sep_space("wc 		");
+	testing_sep_space("  ");
 }
