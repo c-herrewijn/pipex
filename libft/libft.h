@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 15:14:18 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/02/08 16:13:24 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/03 15:47:05 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_isspace(int c);
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *b, size_t n);
