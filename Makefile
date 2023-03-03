@@ -1,7 +1,8 @@
 NAME = pipex
-FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra
 SRC_DIR = sources
-SRCS = main.c
+SRCS = main.c parsing_utils.c
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 LIBFT_DIR = libft
@@ -29,4 +30,8 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+TEST_SRCS = test.c test_is_trail_space.c test_is_separator_space.c test_count_words.c 
+test: 
+	$(CC) -g $(FLAGS) $(addprefix tests/, $(TEST_SRCS)) sources/parsing_utils.c $(LIBFT_DIR)/$(LIBFTNAME) -o test.out
+
+.PHONY: all clean fclean re test
