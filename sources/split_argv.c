@@ -6,17 +6,16 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/03 12:24:59 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/03 17:30:16 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/08 15:05:20 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /*
-frees the array
-to be used in case the malloc fails
+frees the string array
 */
-static void	free_arr(char **arr)
+void	free_arr(char **arr)
 {
 	int	i;
 
@@ -104,4 +103,32 @@ char	**split_argv(char *str, size_t *argc)
 	argv[i_word] = NULL;
 	*argc = nr_words;
 	return (argv);
+}
+
+// assumes argc >= 5
+t_command	**parse_argv(int argc, char *argv[])
+{
+	int			i;
+	int			nr_commands;
+	t_command	**commands;
+	t_command	*command;
+
+	nr_commands = argc - 3;
+	commands = malloc((nr_commands + 1) * sizeof(t_command *));
+	if (commands == NULL)
+		return (NULL);
+	i = 0;
+	while (i < nr_commands)
+	{
+		command = create_command(argv[i + 2]);
+		if (command == NULL)
+		{
+			free_commands(commands);
+			return (NULL);
+		}
+		commands[i] = command;
+		i++;
+	}
+	commands[i] = NULL;
+	return (commands);
 }

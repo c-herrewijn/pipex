@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/03 17:29:41 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/08 13:55:29 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,15 @@
 
 typedef struct s_com
 {
-	int		argc;
+	size_t	argc;
 	char	**argv;
-	char	**environ;
-	char	*command;  // todo: redundant, because equals argv[0]
-	int		pipe_in[2];
-	int		pipe_out[2];
-	int		exit_code;
-}	t_com;
+}	t_command;
 
 typedef struct s_terminal_fd
 {
 	int	fd_in;
 	int	fd_out;
-}	t_term_fds;
+}	t_terminal_fds;
 
 typedef struct s_separator_state
 {
@@ -47,10 +42,13 @@ typedef struct s_separator_state
 	bool	escape_dquote;
 }	t_separator_state;
 
-t_com	**parse_argv(int argc, char *argv[], char *envp[], t_term_fds term_fds);
-char    **split_argv(char *str, size_t *argc);
-bool	is_trail_space(char *str, size_t index);
-bool	is_separator_space(char *str, size_t index);
-size_t	count_words(char *str);
+t_command	**parse_argv(int argc, char *argv[]);
+t_command	*create_command(char *str);
+void		free_commands(t_command **commands);
+char		**split_argv(char *str, size_t *argc);
+bool		is_trail_space(char *str, size_t index);
+bool		is_separator_space(char *str, size_t index);
+size_t		count_words(char *str);
+void		free_arr(char **arr);
 
 #endif

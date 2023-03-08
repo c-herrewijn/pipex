@@ -6,11 +6,31 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/20 17:12:40 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/03 16:46:50 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/08 13:56:18 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+/*
+frees the commands array 
+*/
+void	free_commands(t_command **commands)
+{
+	int	i;
+
+	if (commands != NULL)
+	{
+		i = 0;
+		while (commands[i])
+		{
+			free_arr(commands[i]->argv);
+			free(commands[i]);
+			i++;
+		}
+		free(commands);
+	}
+}
 
 static void	update_open_quote_status(t_separator_state *state, char c)
 {
