@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/08 13:55:29 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/22 13:30:49 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,19 @@
 # include <stdbool.h>
 # include "../libft/libft.h"
 
-typedef struct s_com
+// todo: add command_path to struct: this is the string with the actual command path, and needs to be freed.
+typedef struct s_command
 {
 	size_t	argc;
 	char	**argv;
 }	t_command;
 
-typedef struct s_terminal_fd
+typedef struct s_data
 {
-	int	fd_in;
-	int	fd_out;
-}	t_terminal_fds;
+	size_t		nr_commands;
+	t_command	**commands;
+	int			*pipes[2];
+}	t_data;
 
 typedef struct s_separator_state
 {
@@ -42,7 +44,7 @@ typedef struct s_separator_state
 	bool	escape_dquote;
 }	t_separator_state;
 
-t_command	**parse_argv(int argc, char *argv[]);
+void		parse_argv(int argc, char *argv[], t_data *data);
 t_command	*create_command(char *str);
 void		free_commands(t_command **commands);
 char		**split_argv(char *str, size_t *argc);
@@ -50,5 +52,7 @@ bool		is_trail_space(char *str, size_t index);
 bool		is_separator_space(char *str, size_t index);
 size_t		count_words(char *str);
 void		free_arr(char **arr);
+int			execute_commands(int argc, char **argv, char **envp,
+				t_command **commands);
 
 #endif

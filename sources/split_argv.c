@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/03 12:24:59 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/08 15:05:20 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/22 13:11:38 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,29 +106,28 @@ char	**split_argv(char *str, size_t *argc)
 }
 
 // assumes argc >= 5
-t_command	**parse_argv(int argc, char *argv[])
+void	parse_argv(int argc, char *argv[], t_data *data)
 {
-	int			i;
-	int			nr_commands;
+	size_t		i;
 	t_command	**commands;
 	t_command	*command;
 
-	nr_commands = argc - 3;
-	commands = malloc((nr_commands + 1) * sizeof(t_command *));
+	data->commands = NULL;
+	commands = malloc((data->nr_commands + 1) * sizeof(t_command *));
 	if (commands == NULL)
-		return (NULL);
+		return ;
 	i = 0;
-	while (i < nr_commands)
+	while (i < data->nr_commands)
 	{
 		command = create_command(argv[i + 2]);
 		if (command == NULL)
 		{
 			free_commands(commands);
-			return (NULL);
+			return ;
 		}
 		commands[i] = command;
 		i++;
 	}
 	commands[i] = NULL;
-	return (commands);
+	data->commands = commands;
 }
