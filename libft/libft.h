@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/19 15:14:18 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/03 15:47:05 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/17 10:22:14 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,16 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(const char *format, ...);
+int		ft_printf_fd(int fd, const char *format, ...);
 void	printf_putstr(char *str, int *print_len);
+void	printf_putstr_fd(char *str, int *print_len, int fd);
 void	printf_putnbr(int n, int *print_len);
+void	printf_putnbr_fd(int n, int *print_len, int fd);
 void	printf_putunsnbr(unsigned int nbr, int *print_len);
+void	printf_putunsnbr_fd(unsigned int nbr, int *print_len, int fd);
 void	printf_putunsignedhex(unsigned long long nbr,
 			int *print_len, char var_case);
+void	printf_putunsignedhex_fd(unsigned long long nbr,
+			int *print_len, char var_case, int fd);
 
 #endif
