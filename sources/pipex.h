@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/22 13:30:49 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/22 16:21:26 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ typedef struct s_command
 typedef struct s_data
 {
 	size_t		nr_commands;
+	size_t		nr_pipes;
 	t_command	**commands;
-	int			*pipes[2];
+	int			(*pipes)[2];
 }	t_data;
 
 typedef struct s_separator_state
@@ -54,5 +55,6 @@ size_t		count_words(char *str);
 void		free_arr(char **arr);
 int			execute_commands(int argc, char **argv, char **envp,
 				t_command **commands);
+void		create_pipes(t_data *data);
 
 #endif
