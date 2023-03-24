@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/16 15:07:12 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/24 14:10:35 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/24 15:01:15 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 static int	validate_nr_argvars(int argc)
 {
-	// todo: remove always true!
-	return (1); // alswys true!
-
-	// if (argc != 5)
-	if (argc < 5)
+	if (argc != 5)
 		return (0);
 	else
 		return (1);
