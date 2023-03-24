@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/03 20:23:47 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/08 12:47:41 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/24 10:50:24 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ t_command	*create_command(char *str)
 	if (command == NULL)
 		return (NULL);
 	command->argv = split_argv(str, &(command->argc));
+	command->executable_location = NULL;
 	return (command);
 }

@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/03 12:24:59 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/22 13:37:54 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/24 11:37:34 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	**split_argv(char *str, size_t *argc)
 }
 
 // assumes argc >= 5
-void	parse_argv(int argc, char *argv[], t_data *data)
+void	parse_argv(char *argv[], t_data *data)
 {
 	size_t		i;
 	t_command	**commands;
