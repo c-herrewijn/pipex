@@ -9,4 +9,5 @@ int main(void)
     test_count_words();
     test_split_argv();
     test_create_command();
+    test_ft_printf_fd();
 }
