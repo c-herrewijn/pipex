@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 20:33:06 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/24 14:04:37 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/27 15:49:44 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int	parsing(int argc, char *argv[], char *envp[], t_data *data)
 	if (data->fd_outfile == -1)
 		return (-1);
 	data->paths = get_path(envp);
-	if (data->paths == NULL)
-		return (-1);
 	parse_argv(argv, data);
 	if (data->commands == NULL)
 	{
