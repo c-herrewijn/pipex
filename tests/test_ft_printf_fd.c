@@ -7,4 +7,5 @@ void	test_ft_printf_fd(void)
     ft_printf_fd(1, "hello %s\n", "world");
     ft_printf_fd(1, "pointer: %p\n", "world");
     ft_printf_fd(1, "number: %d\n", 42);
+    ft_printf_fd(2, "error message: --%s--\n", "this is the error msg");
 }

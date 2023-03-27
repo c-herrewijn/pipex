@@ -6,7 +6,7 @@
 /*   By: cherrewi <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/14 16:32:47 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/17 10:16:36 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/27 11:10:02 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	printf_putnbr_fd(int nbr, int *print_len, int fd)
 	char	c;
 
 	if (nbr == -2147483648)
-		*print_len += write(1, "-2147483648", 11);
+		*print_len += write(fd, "-2147483648", 11);
 	else
 	{
 		if (nbr < 0)

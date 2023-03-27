@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/23 20:30:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/17 10:22:43 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/27 11:13:39 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,34 @@ static int	format_valid(const char *format_str, char *format_chars)
 	return (format_count);
 }
 
-static void	print_va_arg(const char format_char, int *print_len, va_list ap)
+static void	print_va_arg(const char format_char, int *print_len, va_list ap,
+	int fd)
 {
 	char					c;
 
 	if (format_char == 'c')
 	{
 		c = va_arg(ap, int);
-		*print_len += write(1, &c, 1);
+		*print_len += write(fd, &c, 1);
 	}
 	if (format_char == 's')
-		printf_putstr(va_arg(ap, char *), print_len);
+		printf_putstr_fd(va_arg(ap, char *), print_len, fd);
 	if (format_char == 'p')
 	{
-		*print_len += write(1, "0x", 2);
-		printf_putunsignedhex(va_arg(ap, unsigned long long int),
-			print_len, 'l');
+		*print_len += write(fd, "0x", 2);
+		printf_putunsignedhex_fd(va_arg(ap, unsigned long long int),
+			print_len, 'l', fd);
 	}
 	if (format_char == 'd' || format_char == 'i')
-		printf_putnbr(va_arg(ap, int), print_len);
+		printf_putnbr_fd(va_arg(ap, int), print_len, fd);
 	if (format_char == 'u')
-		printf_putunsnbr(va_arg(ap, unsigned int), print_len);
+		printf_putunsnbr_fd(va_arg(ap, unsigned int), print_len, fd);
 	if (format_char == 'x')
-		printf_putunsignedhex(va_arg(ap, unsigned int), print_len, 'l');
+		printf_putunsignedhex_fd(va_arg(ap, unsigned int), print_len, 'l', fd);
 	if (format_char == 'X')
-		printf_putunsignedhex(va_arg(ap, unsigned int), print_len, 'u');
+		printf_putunsignedhex_fd(va_arg(ap, unsigned int), print_len, 'u', fd);
 	if (format_char == '%')
-		*print_len += write(1, "%", 1);
+		*print_len += write(fd, "%", 1);
 }
 
 int	ft_printf_fd(int fd, const char *format, ...)
@@ -91,7 +92,7 @@ int	ft_printf_fd(int fd, const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			print_va_arg(*format, &print_len, ap);
+			print_va_arg(*format, &print_len, ap, fd);
 		}
 		else
 			print_len += write(fd, format, 1);
