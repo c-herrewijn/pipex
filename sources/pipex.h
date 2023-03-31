@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/24 14:56:33 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/31 18:12:40 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_command
 	size_t	argc;
 	char	**argv;
 	char	*executable_location;
+	pid_t	pid;
+	int		exit_status;
 }	t_command;
 
 typedef struct s_data
@@ -62,5 +64,6 @@ void		create_pipes(t_data *data);
 int			close_all_pipes(t_data *data);
 int			close_pipes_before_running_command_i(t_data *data,
 				size_t i_command);
+char		*combine_command_path(char *path, char *cmd);
 
 #endif

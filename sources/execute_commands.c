@@ -6,32 +6,36 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/08 15:33:53 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/24 14:07:37 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/03/31 18:21:01 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static char	*combine_command_path(char *path, char *cmd)
+static void	exit_with_error(t_command *command)
 {
-	char	*command_path;
-	size_t	malloc_len;
+	extern int	errno;
 
-	malloc_len = ft_strlen(path) + ft_strlen("/") + ft_strlen(cmd) + 1;
-	command_path = malloc(malloc_len * sizeof(char));
-	if (command_path == NULL)
-		return (NULL);
-	ft_strlcpy(command_path, path, malloc_len);
-	ft_strlcat(command_path, "/", malloc_len);
-	ft_strlcat(command_path, cmd, malloc_len);
-	return (command_path);
+	if (errno == 1)
+	{
+		ft_printf_fd(2, "pipex: %s: Permission denied\n", command->argv[0]);
+		exit(126);
+	}
+	if (errno == 2)
+	{
+		ft_printf_fd(2, "pipex: %s: command not found\n", command->argv[0]);
+		exit(127);
+	}
+	exit(1);
 }
 
 static void	execute_command(char **envp, char **paths, t_command *command)
 {
-	int		i;
+	int			i;
+	extern int	errno;
 
 	i = 0;
+	command->executable_location = NULL;
 	while (paths[i] != NULL)
 	{
 		if (command->executable_location != NULL)
@@ -41,8 +45,7 @@ static void	execute_command(char **envp, char **paths, t_command *command)
 		execve(command->executable_location, command->argv, envp);
 		i++;
 	}
-	// todo: try to execute the command from local directory
-	exit(EXIT_FAILURE);  // todo catch error!
+	exit_with_error(command);
 }
 
 static int	set_filedescriptors(t_data *data, size_t i_command)
@@ -70,6 +73,29 @@ static int	set_filedescriptors(t_data *data, size_t i_command)
 	return (1);
 }
 
+static int	wait_for_child_processes(t_data *data)
+{
+	size_t	i;
+	pid_t	return_pid;
+	int		stat_loc;
+
+	i = 0;
+	while (i < data->nr_commands)
+	{
+		return_pid = waitpid(data->commands[i]->pid, &stat_loc, 0);
+		if (return_pid == -1)
+		{
+			return (-1);
+		}
+		else
+		{
+			data->commands[i]->exit_status = WEXITSTATUS(stat_loc);
+		}
+		i++;
+	}
+	return (1);
+}
+
 int	execute_commands_in_child_processes(char **envp, t_data *data)
 {
 	pid_t	new_pid;
@@ -89,16 +115,10 @@ int	execute_commands_in_child_processes(char **envp, t_data *data)
 				return (-1);
 			execute_command(envp, data->paths, data->commands[i]);
 		}
+		data->commands[i]->pid = new_pid;
 		i++;
 	}
-	if (close_all_pipes(data) < 0)
+	if (close_all_pipes(data) < 0 || wait_for_child_processes(data) < 0)
 		return (-1);
-	i = 0;
-	while (i < data->nr_commands)
-	{
-		if (wait(NULL) == -1)
-			return (-1);
-		i++;
-	}
 	return (1);
 }
