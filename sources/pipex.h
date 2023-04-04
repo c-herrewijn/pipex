@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/31 18:12:40 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/04 16:16:39 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ typedef struct s_command
 
 typedef struct s_data
 {
+	size_t		argc;
+	char		**argv;
 	size_t		nr_commands;
 	size_t		nr_pipes;
-	int			fd_infile;
-	int			fd_outfile;
 	char		**paths;
 	t_command	**commands;
 	int			(*pipes)[2];
@@ -65,5 +65,9 @@ int			close_all_pipes(t_data *data);
 int			close_pipes_before_running_command_i(t_data *data,
 				size_t i_command);
 char		*combine_command_path(char *path, char *cmd);
+void		print_file_error(char *file);
+void		print_gereral_error(void);
+void		exit_with_error(t_command *command, char **paths);
+int			set_filedescriptors(t_data *data, size_t i_command);
 
 #endif

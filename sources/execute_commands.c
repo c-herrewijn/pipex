@@ -6,28 +6,11 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/08 15:33:53 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/31 18:21:01 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/04 16:22:05 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-static void	exit_with_error(t_command *command)
-{
-	extern int	errno;
-
-	if (errno == 1)
-	{
-		ft_printf_fd(2, "pipex: %s: Permission denied\n", command->argv[0]);
-		exit(126);
-	}
-	if (errno == 2)
-	{
-		ft_printf_fd(2, "pipex: %s: command not found\n", command->argv[0]);
-		exit(127);
-	}
-	exit(1);
-}
 
 static void	execute_command(char **envp, char **paths, t_command *command)
 {
@@ -36,41 +19,26 @@ static void	execute_command(char **envp, char **paths, t_command *command)
 
 	i = 0;
 	command->executable_location = NULL;
-	while (paths[i] != NULL)
+	if (paths == NULL)
 	{
 		if (command->executable_location != NULL)
 			free(command->executable_location);
-		command->executable_location
-			= combine_command_path(paths[i], command->argv[0]);
+		command->executable_location = command->argv[0];
 		execve(command->executable_location, command->argv, envp);
-		i++;
-	}
-	exit_with_error(command);
-}
-
-static int	set_filedescriptors(t_data *data, size_t i_command)
-{
-	if (i_command == 0)
-	{
-		if (dup2(data->fd_infile, STDIN_FILENO) == -1)
-			return (-1);
 	}
 	else
 	{
-		if (dup2(data->pipes[i_command - 1][0], STDIN_FILENO) == -1)
-			return (-1);
+		while (paths[i] != NULL)
+		{
+			if (command->executable_location != NULL)
+				free(command->executable_location);
+			command->executable_location
+				= combine_command_path(paths[i], command->argv[0]);
+			execve(command->executable_location, command->argv, envp);
+			i++;
+		}
 	}
-	if (i_command + 1 == data->nr_commands)
-	{
-		if (dup2(data->fd_outfile, STDOUT_FILENO) == -1)
-			return (-1);
-	}
-	else
-	{
-		if (dup2(data->pipes[i_command][1], STDOUT_FILENO) == -1)
-			return (-1);
-	}
-	return (1);
+	exit_with_error(command, paths);
 }
 
 static int	wait_for_child_processes(t_data *data)

@@ -2,7 +2,7 @@ NAME = pipex
 # FLAGS = -Wall -Wextra -Werror
 FLAGS = -g -Wall -Wextra
 SRC_DIR = sources
-SRCS = main.c parsing_utils.c parse_argv.c create_command.c execute_commands.c pipes.c parsing.c path_utils.c
+SRCS = main.c parsing_utils.c parse_argv.c create_command.c execute_commands.c pipes.c parsing.c path_utils.c error_handling.c set_file_descriptors.c
 OBJ_DIR = obj
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 LIBFT_DIR = libft
@@ -32,6 +32,6 @@ re: fclean all
 
 TEST_SRCS = test.c test_is_trail_space.c test_is_separator_space.c test_count_words.c test_split_argv.c test_create_command.c test_ft_printf_fd.c
 test: $(NAME)
-	$(CC) -g $(FLAGS) $(addprefix tests/, $(TEST_SRCS)) sources/parsing_utils.c sources/parse_argv.c sources/create_command.c sources/pipes.c sources/parsing.c sources/path_utils.c $(LIBFT_DIR)/$(LIBFTNAME) -o test.out
+	$(CC) -g $(FLAGS) $(addprefix tests/, $(TEST_SRCS)) sources/parsing_utils.c sources/parse_argv.c sources/create_command.c sources/pipes.c sources/parsing.c sources/path_utils.c sources/error_handling.c sources/set_file_descriptors.c $(LIBFT_DIR)/$(LIBFTNAME) -o test.out
 
 .PHONY: all clean fclean re test

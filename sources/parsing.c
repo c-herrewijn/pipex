@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 20:33:06 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/27 15:49:44 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/04 16:10:12 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,10 @@ static char	**get_path(char **envp)
 
 int	parsing(int argc, char *argv[], char *envp[], t_data *data)
 {
+	data->argc = argc;
+	data->argv = argv;
 	data->nr_commands = (size_t)argc - 3;
 	data->nr_pipes = data->nr_commands - 1;
-	data->fd_infile = open(argv[1], O_RDONLY);
-	if (data->fd_infile == -1)
-		return (-1);
-	data->fd_outfile = open(argv[argc - 1], O_CREAT | O_WRONLY, 0644);
-	if (data->fd_outfile == -1)
-		return (-1);
 	data->paths = get_path(envp);
 	parse_argv(argv, data);
 	if (data->commands == NULL)
