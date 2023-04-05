@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 16:05:58 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/05 19:38:59 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/05 20:00:46 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exit_with_error(t_command *command, char **paths)
 
 	if (errno == 13)
 	{
-		perror(command->argv[0]);
+		perror(command->executable_location);
 		exit(126);
 	}
 	if (errno == 2)
