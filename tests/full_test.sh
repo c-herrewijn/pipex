@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "start tests..."
+orig_path=$PATH
 cd /Users/cherrewi/Documents/repositories/pipex/
 echo -e "aa line 1\nbb line2\ncc line3" > infile
 
@@ -71,12 +72,11 @@ chmod 644 infile
 # unset Path
 echo "---------------------"
 echo "test 5"
-temp_path=$PATH
 rm -rf outfile
 unset PATH
 ./pipex infile cat "wc -l" outfile
-echo $?
-PATH=$temp_path
+/bin/echo $?
+PATH=$orig_path
 cat outfile
 
 echo "original"
@@ -84,14 +84,93 @@ rm -rf outfile
 unset PATH
 < infile cat | wc -l > outfile
 echo $?
-PATH=$temp_path
+export PATH=$orig_path
 cat outfile
 
 # ---------------------
-# todo: commands in path without permission
+# Testing manual commands in PATH
+# ---------------------
+cmd_dir="/Users/cherrewi/Documents/repositories/pipex/tests/test_cmds"
+mkdir -p $cmd_dir
+PATH+=":"$cmd_dir
+rm -rf $cmd_dir/hello_world
+echo -e '#!/bin/bash\necho "hello world!!"' > $cmd_dir/hello_world
+chmod 755 $cmd_dir/hello_world
 
 # ---------------------
-# todo: commands in local dir (with unset PATH) with permission
+# manual command in path WITH permission
+echo "---------------------"
+echo "test 6"
+rm -rf outfile
+./pipex infile cat hello_world outfile
+echo $?
+cat outfile
+
+echo "original"
+rm -rf outfile
+< infile cat | hello_world > outfile
+echo $?
+cat outfile
+
+
+# ---------------------
+# manual command in path WITHOUT permission
+echo "---------------------"
+echo "test 7"
+rm -rf outfile
+chmod 000 $cmd_dir/hello_world
+./pipex infile cat hello_world outfile
+echo $?
+cat outfile
+
+echo "original"
+rm -rf outfile
+< infile cat | hello_world > outfile
+echo $?
+cat outfile
+rm -rf $cmd_dir  # cleanup
+
+
+# ---------------------
+# Testing manual commands in local directory
+# ---------------------
+rm -rf hello_world
+echo -e '#!/bin/bash\necho "hello world!!"' > hello_world
+chmod 755 hello_world
+
+
+# ---------------------
+# commands in local dir (with unset PATH) with permission
+echo "test 8"
+unset PATH
+/bin/rm -rf outfile
+./pipex infile hello_world hello_world outfile
+/bin/echo $?
+/bin/cat outfile
+
+echo "original"
+/bin/rm -rf outfile
+< infile hello_world | hello_world > outfile
+/bin/echo $?
+/bin/cat outfile
 
 # ---------------------
 # todo: commands in local dir (with unset PATH) without permission
+echo "test 9"
+/bin/chmod 000 hello_world
+/bin/rm -rf outfile
+./pipex infile hello_world hello_world outfile
+/bin/echo $?
+/bin/cat outfile
+
+echo "original"
+/bin/rm -rf outfile
+< infile hello_world | hello_world > outfile
+/bin/echo $?
+/bin/cat outfile
+
+# ---------------------
+# Cleanup
+# ---------------------
+export PATH=$orig_path
+rm -rf hello_world

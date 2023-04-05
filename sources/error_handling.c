@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 16:05:58 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/04 16:08:18 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/05 13:31:27 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exit_with_error(t_command *command, char **paths)
 {
 	extern int	errno;
 
-	if (errno == 1)
+	if (errno == 13)
 	{
 		ft_printf_fd(2, "%s: Permission denied\n", command->argv[0]);
 		exit(126);
