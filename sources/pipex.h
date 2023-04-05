@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/05 17:38:45 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/05 17:52:26 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int			close_pipes_before_running_command_i(t_data *data,
 char		*combine_command_path(char *path, char *cmd);
 void		exit_with_error(t_command *command, char **paths);
 int			set_filedescriptors(t_data *data, size_t i_command);
+void		print_child_errors(t_data *data);
 
 #endif
