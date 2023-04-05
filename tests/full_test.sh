@@ -141,6 +141,7 @@ chmod 755 hello_world
 
 # ---------------------
 # commands in local dir (with unset PATH) with permission
+echo "---------------------"
 echo "test 8"
 unset PATH
 /bin/rm -rf outfile
@@ -155,7 +156,8 @@ echo "original"
 /bin/cat outfile
 
 # ---------------------
-# todo: commands in local dir (with unset PATH) without permission
+# commands in local dir (with unset PATH) without permission
+echo "---------------------"
 echo "test 9"
 /bin/chmod 000 hello_world
 /bin/rm -rf outfile
@@ -168,9 +170,25 @@ echo "original"
 < infile hello_world | hello_world > outfile
 /bin/echo $?
 /bin/cat outfile
+export PATH=$orig_path
+
+# ---------------------
+# Double errors
+# ---------------------
+echo "---------------------"
+echo "test 10"
+rm -rf outfile
+./pipex infile ls3 ls3 outfile  # also try 10x manual, the error messages might get scrambled
+echo $?
+cat outfile
+
+echo "original"
+rm -rf outfile
+< infile ls3 | ls3 > outfile
+echo $?
+cat outfile
 
 # ---------------------
 # Cleanup
 # ---------------------
-export PATH=$orig_path
 rm -rf hello_world

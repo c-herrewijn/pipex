@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 16:14:14 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/04 17:25:46 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/05 17:17:55 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static int	set_fd_infile(t_data *data)
 	fd_infile = open(data->argv[1], O_RDONLY);
 	if (fd_infile == -1)
 	{
-		print_file_error(data->argv[1]);
+		perror(data->argv[1]);
 		return (-1);
 	}
 	if (dup2(fd_infile, STDIN_FILENO) == -1)
 	{
-		print_gereral_error();
+		perror(NULL);
 		return (-1);
 	}
 	return (1);
@@ -37,12 +37,12 @@ static int	set_fd_outfile(t_data *data)
 	fd_outfile = open(data->argv[data->argc - 1], O_CREAT | O_WRONLY, 0644);
 	if (fd_outfile == -1)
 	{
-		print_file_error(data->argv[data->argc - 1]);
+		perror(data->argv[data->argc - 1]);
 		return (-1);
 	}
 	if (dup2(fd_outfile, STDOUT_FILENO) == -1)
 	{
-		print_gereral_error();
+		perror(NULL);
 		return (-1);
 	}
 	return (1);
@@ -52,7 +52,7 @@ static int	set_fd_pipe_in(t_data *data, size_t i_command)
 {
 	if (dup2(data->pipes[i_command - 1][0], STDIN_FILENO) == -1)
 	{
-		print_gereral_error();
+		perror(NULL);
 		return (-1);
 	}
 	return (1);
@@ -62,7 +62,7 @@ static int	set_fd_pipe_out(t_data *data, size_t i_command)
 {
 	if (dup2(data->pipes[i_command][1], STDOUT_FILENO) == -1)
 	{
-		print_gereral_error();
+		perror(NULL);
 		return (-1);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/08 15:33:53 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/04 16:22:05 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/05 16:31:47 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,8 @@ static int	wait_for_child_processes(t_data *data)
 	{
 		return_pid = waitpid(data->commands[i]->pid, &stat_loc, 0);
 		if (return_pid == -1)
-		{
 			return (-1);
-		}
-		else
-		{
-			data->commands[i]->exit_status = WEXITSTATUS(stat_loc);
-		}
+		data->commands[i]->exit_status = WEXITSTATUS(stat_loc);
 		i++;
 	}
 	return (1);
