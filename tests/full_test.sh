@@ -189,6 +189,28 @@ echo $?
 cat outfile
 
 # ---------------------
+# outfile no privileges
+echo "---------------------"
+echo "test 11"
+rm -rf outfile
+touch outfile
+chmod 000 outfile
+./pipex infile cat "wc -l" outfile
+echo $?
+chmod 644 outfile
+cat outfile
+
+echo "original"
+rm -rf outfile
+touch outfile
+chmod 000 outfile
+< infile cat | wc -l > outfile
+echo $?
+chmod 644 outfile
+cat outfile
+rm -rf outfile
+
+# ---------------------
 # Cleanup
 # ---------------------
 rm -rf hello_world
