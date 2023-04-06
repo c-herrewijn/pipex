@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/20 17:12:40 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/08 13:56:18 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/06 11:33:32 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	free_commands(t_command **commands)
 		while (commands[i])
 		{
 			free_arr(commands[i]->argv);
+			if (commands[i]->executable_location != NULL)
+				free(commands[i]->executable_location);
 			free(commands[i]);
 			i++;
 		}

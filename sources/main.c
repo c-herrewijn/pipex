@@ -6,18 +6,25 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/16 15:07:12 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/31 18:07:29 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/06 16:22:02 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int	validate_nr_argvars(int argc)
+static bool	is_valid_argc(int argc)
 {
-	if (argc != 5)
-		return (0);
+	if (argc == 5)
+		return (true);
 	else
-		return (1);
+		return (false);
+}
+
+static void	free_data_struct(t_data *data)
+{
+	free_arr(data->paths);
+	free_commands(data->commands);
+	free(data->pipes);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -26,15 +33,19 @@ int	main(int argc, char *argv[], char *envp[])
 	int			final_command_index;
 	int			exit_status;
 
-	if (!validate_nr_argvars(argc))
+	if (!is_valid_argc(argc))
 		return (1);
-	if (parsing(argc, argv, envp, &data) == -1)
+	if (parsing(argc, argv, envp, &data) < 0
+		|| execute_commands_in_child_processes(envp, &data) < 0
+		|| close_all_pipes(&data) < 0
+		|| wait_for_child_processes(&data) < 0)
+	{
+		free_data_struct(&data);
 		return (1);
-	if (execute_commands_in_child_processes(envp, &data) == -1)
-		return (1);
-
-	// at very end, close outfile fildescriptor and free data struct!
+	}
+	print_child_errors(&data);
 	final_command_index = data.nr_commands - 1;
 	exit_status = data.commands[final_command_index]->exit_status;
+	free_data_struct(&data);
 	return (exit_status);
 }

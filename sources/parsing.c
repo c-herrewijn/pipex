@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 20:33:06 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/04 16:10:12 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/06 15:42:07 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,13 @@ int	parsing(int argc, char *argv[], char *envp[], t_data *data)
 	parse_argv(argv, data);
 	if (data->commands == NULL)
 	{
-		free(data->paths);
+		perror(NULL);
 		return (-1);
 	}
 	create_pipes(data);
 	if (data->pipes == NULL)
 	{
-		free(data->paths);
-		free_commands(data->commands);
+		perror(NULL);
 		return (-1);
 	}
 	return (0);

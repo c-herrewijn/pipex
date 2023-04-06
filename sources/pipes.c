@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/22 13:50:19 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/24 13:55:27 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/06 16:08:13 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,18 @@ int	close_pipes_before_running_command_i(t_data *data, size_t i_command)
 		if (!(i_command == i_pipe + 1))
 		{
 			if (close(data->pipes[i_pipe][0]) < 0)
+			{
+				perror(NULL);
 				return (-1);
+			}
 		}
 		if (!(i_command == i_pipe))
 		{
 			if (close(data->pipes[i_pipe][1]) < 0)
+			{
+				perror(NULL);
 				return (-1);
+			}
 		}
 		i_pipe++;
 	}
@@ -64,9 +70,15 @@ int	close_all_pipes(t_data *data)
 	while (i < data->nr_pipes)
 	{
 		if (close(data->pipes[i][0]) < 0)
+		{
+			perror(NULL);
 			return (-1);
+		}
 		if (close(data->pipes[i][1]) < 0)
+		{
+			perror(NULL);
 			return (-1);
+		}
 		i++;
 	}
 	return (1);

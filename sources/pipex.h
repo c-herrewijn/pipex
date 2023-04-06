@@ -6,20 +6,21 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/05 17:52:26 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/06 16:32:17 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <stdio.h>
-# include <string.h>
-# include <stdlib.h>
-# include <sys/wait.h>
-# include <unistd.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <unistd.h>
 # include "../libft/libft.h"
 
 typedef struct s_command
@@ -60,6 +61,7 @@ bool		is_separator_space(char *str, size_t index);
 size_t		count_words(char *str);
 void		free_arr(char **arr);
 int			execute_commands_in_child_processes(char **envp, t_data *data);
+int			wait_for_child_processes(t_data *data);
 void		create_pipes(t_data *data);
 int			close_all_pipes(t_data *data);
 int			close_pipes_before_running_command_i(t_data *data,

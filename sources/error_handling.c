@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 16:05:58 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/05 20:00:46 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/06 16:26:19 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	exit_with_error(t_command *command, char **paths)
 {
 	extern int	errno;
 
-	if (errno == 13)
+	if (errno == EACCES)
 	{
 		perror(command->executable_location);
 		exit(126);
 	}
-	if (errno == 2)
+	if (errno == ENOENT)
 	{
 		if (paths == NULL)
 			perror(command->argv[0]);
