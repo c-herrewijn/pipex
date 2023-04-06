@@ -6,30 +6,11 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/03 12:24:59 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/03/24 11:37:34 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/06 17:49:17 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-/*
-frees the string array
-*/
-void	free_arr(char **arr)
-{
-	int	i;
-
-	if (arr != NULL)
-	{
-		i = 0;
-		while (arr[i])
-		{
-			free(arr[i]);
-			i++;
-		}
-		free(arr);
-	}
-}
 
 /*
 length of word up to next separator
@@ -79,7 +60,7 @@ static char	*create_word(char *str, size_t word_nr)
 /*
 creates argument vector from a string 
 */
-char	**split_argv(char *str, size_t *argc)
+static char	**split_argv(char *str, size_t *argc)
 {
 	char	**argv;
 	size_t	nr_words;
@@ -103,6 +84,18 @@ char	**split_argv(char *str, size_t *argc)
 	argv[i_word] = NULL;
 	*argc = nr_words;
 	return (argv);
+}
+
+static t_command	*create_command(char *str)
+{
+	t_command	*command;
+
+	command = malloc(sizeof(t_command));
+	if (command == NULL)
+		return (NULL);
+	command->argv = split_argv(str, &(command->argc));
+	command->executable_location = NULL;
+	return (command);
 }
 
 // assumes argc >= 5
