@@ -6,18 +6,21 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/08 15:33:53 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/06 16:15:17 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/07 15:14:33 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	execute_command_from_local_dir(char **envp, t_command *command)
+static void	execute_command_local_dir(char **envp, char **paths,
+	t_command *command)
 {
+	if (command->executable_location != NULL)
+		free(command->executable_location);
 	command->executable_location = ft_strdup(command->argv[0]);
 	if (command->executable_location != NULL)
 		execve(command->executable_location, command->argv, envp);
-	exit_with_error(command, NULL);
+	exit_with_error(command, paths);
 }
 
 static void	execute_command_from_path(char **envp, char **paths,
@@ -38,7 +41,10 @@ static void	execute_command_from_path(char **envp, char **paths,
 		execve(command->executable_location, command->argv, envp);
 		i++;
 	}
-	exit_with_error(command, paths);
+	if (errno != EACCES)
+		execute_command_local_dir(envp, paths, command);
+	else
+		exit_with_error(command, paths);
 }
 
 static void	run_child_process_and_exit(char **envp, t_data *data, size_t com_i)
@@ -50,7 +56,7 @@ static void	run_child_process_and_exit(char **envp, t_data *data, size_t com_i)
 	if (data->paths != NULL)
 		execute_command_from_path(envp, data->paths, data->commands[com_i]);
 	else
-		execute_command_from_local_dir(envp, data->commands[com_i]);
+		execute_command_local_dir(envp, data->paths, data->commands[com_i]);
 }
 
 int	wait_for_child_processes(t_data *data)
