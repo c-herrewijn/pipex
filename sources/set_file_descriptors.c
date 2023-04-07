@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 16:14:14 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/05 17:17:55 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/07 17:06:33 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	set_fd_infile(t_data *data)
 		perror(NULL);
 		return (-1);
 	}
-	return (1);
+	return (0);
 }
 
 static int	set_fd_outfile(t_data *data)
@@ -45,7 +45,7 @@ static int	set_fd_outfile(t_data *data)
 		perror(NULL);
 		return (-1);
 	}
-	return (1);
+	return (0);
 }
 
 static int	set_fd_pipe_in(t_data *data, size_t i_command)
@@ -55,7 +55,7 @@ static int	set_fd_pipe_in(t_data *data, size_t i_command)
 		perror(NULL);
 		return (-1);
 	}
-	return (1);
+	return (0);
 }
 
 static int	set_fd_pipe_out(t_data *data, size_t i_command)
@@ -65,7 +65,7 @@ static int	set_fd_pipe_out(t_data *data, size_t i_command)
 		perror(NULL);
 		return (-1);
 	}
-	return (1);
+	return (0);
 }
 
 int	set_filedescriptors(t_data *data, size_t i_command)
@@ -90,5 +90,5 @@ int	set_filedescriptors(t_data *data, size_t i_command)
 		if (set_fd_pipe_out(data, i_command) < 0)
 			return (-1);
 	}
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/08 15:33:53 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/07 15:14:33 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/07 17:07:13 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	wait_for_child_processes(t_data *data)
 		data->commands[i]->exit_status = WEXITSTATUS(stat_loc);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int	execute_commands_in_child_processes(char **envp, t_data *data)
@@ -101,5 +101,5 @@ int	execute_commands_in_child_processes(char **envp, t_data *data)
 		data->commands[i]->pid = new_pid;
 		i++;
 	}
-	return (1);
+	return (0);
 }
