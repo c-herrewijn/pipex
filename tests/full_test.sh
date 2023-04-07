@@ -179,6 +179,7 @@ echo "original"
 /bin/echo $?
 /bin/cat outfile
 export PATH=$orig_path
+rm -rf hello_world # cleanup
 
 # ---------------------
 # Double errors
@@ -264,14 +265,36 @@ rm -rf outfile
 < infile cat | hello_world > outfile
 echo $?
 cat outfile
+rm -rf $cmd_dir/hello_world  #cleanup
+rm -rf $cmd_dir2/hello_world
 
 # ---------------------
 # command in path without access rights, and local with access rights
 echo "---------------------"
-echo "test 13: TODO!!"
+echo "test 14"
+export PATH=$orig_path
+PATH+=":"$cmd_dir
+cmd_dir="/Users/cherrewi/Documents/repositories/pipex/tests/test_cmds"
+echo -e '#!/bin/bash\necho "hello world from path"' > $cmd_dir/hello_world
+echo -e '#!/bin/bash\necho "hello world local"' > hello_world
+chmod 000 $cmd_dir/hello_world
+chmod 755 hello_world
+hash -r
+
+rm -rf outfile
+./pipex infile cat hello_world outfile
+echo $?
+cat outfile
+
+echo "original"
+rm -rf outfile
+< infile cat | hello_world > outfile
+echo $?
+cat outfile
 
 
 # ---------------------
 # Cleanup
 # ---------------------
+rm -rf $cmd_dir #cleanup
 rm -rf hello_world
