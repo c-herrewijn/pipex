@@ -308,6 +308,25 @@ rm -rf outfile
 echo $?
 cat outfile
 
+
+# ---------------------
+# bonus part
+echo "test bonus"
+echo -e "aa 'line' 1\nbb 'line'2\ncc line3" > "infile_'quote"
+
+rm -rf outfile
+./pipex "infile_'quote" cat "grep \"'line'\"" "wc -l" outfile
+echo $?
+cat outfile
+
+echo "original"
+rm -rf outfile
+< "infile_'quote" cat | grep "'line'" | wc -l > outfile
+echo $?
+cat outfile
+
+rm -rf "infile_'quote"
+
 # ---------------------
 # Cleanup
 # ---------------------

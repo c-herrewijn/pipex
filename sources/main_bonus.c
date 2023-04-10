@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   main_bonus.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/02/16 15:07:12 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/10 16:34:54 by cherrewi      ########   odam.nl         */
+/*   Created: 2023/04/10 16:32:31 by cherrewi      #+#    #+#                 */
+/*   Updated: 2023/04/10 16:34:22 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	is_valid_argc(int argc)
 {
-	if (argc == 5)
+	if (argc >= 5)
 		return (true);
 	else
 	{
