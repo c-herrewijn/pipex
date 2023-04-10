@@ -30,7 +30,7 @@ fclean: clean
 
 re: fclean all
 
-TEST_SRCS = test.c test_is_trail_space.c test_is_separator_space.c test_count_words.c test_split_argv.c test_create_command.c test_ft_printf_fd.c
+TEST_SRCS = test.c test_is_trail_space.c test_is_separator_space.c test_count_words.c test_split_argv.c test_create_command.c test_ft_printf_fd.c test_trim_quotes.c
 test: $(NAME)
 	$(CC) -g $(FLAGS) $(addprefix tests/, $(TEST_SRCS)) sources/parsing_utils.c sources/parse_argv.c sources/pipes.c sources/parsing.c sources/path_utils.c sources/error_handling.c sources/set_file_descriptors.c $(LIBFT_DIR)/$(LIBFTNAME) -o test.out
 

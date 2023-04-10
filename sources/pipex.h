@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/18 18:09:20 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/06 17:51:23 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/10 14:52:19 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ char		*combine_command_path(char *path, char *cmd);
 void		exit_with_error(t_command *command, char **paths);
 int			set_filedescriptors(t_data *data, size_t i_command);
 void		print_child_errors(t_data *data);
+char		*trim_quotes(char *word);
 
 #endif

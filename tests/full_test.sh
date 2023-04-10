@@ -292,9 +292,25 @@ rm -rf outfile
 echo $?
 cat outfile
 
+# ---------------------
+# awk command
+echo "---------------------"
+echo "test 15"
+
+rm -rf outfile
+./pipex infile "grep line" "awk '{count++} END {print count}'" outfile
+echo $?
+cat outfile
+
+echo "original"
+rm -rf outfile
+< infile grep line | awk '{count++} END {print count}' > outfile
+echo $?
+cat outfile
 
 # ---------------------
 # Cleanup
 # ---------------------
 rm -rf $cmd_dir #cleanup
+rm -rf outfile
 rm -rf hello_world

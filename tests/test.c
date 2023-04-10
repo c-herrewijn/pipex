@@ -10,4 +10,5 @@ int main(void)
     test_split_argv();
     test_create_command();
     test_ft_printf_fd();
+    test_trim_quotes();
 }

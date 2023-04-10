@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/03 12:24:59 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/06 17:49:17 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/10 16:10:21 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char	*create_word(char *str, size_t word_nr)
 	size_t	w_count;
 	size_t	i;
 	char	*word_start;
+	char	*word;
 
 	w_count = 0;
 	i = 0;
@@ -54,7 +55,8 @@ static char	*create_word(char *str, size_t word_nr)
 		i++;
 		word_start++;
 	}
-	return (ft_substr(str, i, word_len(word_start)));
+	word = ft_substr(str, i, word_len(word_start));
+	return (trim_quotes(word));
 }
 
 /*
