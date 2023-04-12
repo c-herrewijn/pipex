@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 16:14:14 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/07 17:06:33 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/11 13:39:50 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static int	set_fd_outfile(t_data *data)
 {
 	int	fd_outfile;
 
-	fd_outfile = open(data->argv[data->argc - 1], O_CREAT | O_WRONLY, 0644);
+	fd_outfile = open(data->argv[data->argc - 1],
+			O_TRUNC | O_CREAT | O_WRONLY, 0644);
 	if (fd_outfile == -1)
 	{
 		perror(data->argv[data->argc - 1]);

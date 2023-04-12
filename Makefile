@@ -6,7 +6,7 @@
 #    By: cherrewi <cherrewi@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/04/10 16:19:18 by cherrewi      #+#    #+#                  #
-#    Updated: 2023/04/10 16:37:59 by cherrewi      ########   odam.nl          #
+#    Updated: 2023/04/12 14:15:08 by cherrewi      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,19 +36,19 @@ $(NAME): $(OBJS) $(LIBFT_DIR)/$(LIBFTNAME)
 	$(CC) $(FLAGS) $^ -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 	$(CC) -c $(FLAGS) $< -o $@
 
 $(LIBFT_DIR)/$(LIBFTNAME):
-	$(MAKE) -C $(LIBFT_DIR) bonus
+	@$(MAKE) -C $(LIBFT_DIR) bonus
 
 clean:
 	rm -rf $(OBJ_DIR)
-	$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

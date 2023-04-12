@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/04/04 16:05:58 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/06 17:42:07 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/10 20:13:41 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_arr(char **arr)
 }
 
 /*
-frees the commands array 
+frees the commands array
 */
 void	free_commands(t_command **commands)
 {
@@ -61,7 +61,7 @@ void	print_child_errors(t_data *data)
 	while (i < data->nr_commands)
 	{
 		if (data->commands[i]->exit_status == 127)
-		{			
+		{
 			if (data->paths != NULL)
 				ft_printf_fd(STDERR_FILENO, "%s: command not found\n",
 					data->commands[i]->argv[0]);

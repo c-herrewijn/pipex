@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/03/03 12:24:59 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/10 16:10:21 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/10 20:46:57 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	*create_word(char *str, size_t word_nr)
 }
 
 /*
-creates argument vector from a string 
+creates argument vector from a string
 */
 static char	**split_argv(char *str, size_t *argc)
 {
@@ -96,6 +96,8 @@ static t_command	*create_command(char *str)
 	if (command == NULL)
 		return (NULL);
 	command->argv = split_argv(str, &(command->argc));
+	if (command->argv == NULL)
+		return (NULL);
 	command->executable_location = NULL;
 	return (command);
 }

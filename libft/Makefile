@@ -6,7 +6,7 @@
 #    By: cherrewi <cherrewi@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/19 15:14:28 by cherrewi      #+#    #+#                  #
-#    Updated: 2023/03/17 10:19:03 by cherrewi      ########   odam.nl          #
+#    Updated: 2023/04/11 13:54:22 by cherrewi      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,20 +37,20 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+	@ar rc $(NAME) $(OBJS)
 
 %.o: %.c
-	$(CC) -c $(FLAGS) $< -o $@
+	@$(CC) -c $(FLAGS) $< -o $@
 
 clean:
-	rm -f $(OBJS_REG) $(OBJS_BONUS)
+	@rm -f $(OBJS_REG) $(OBJS_BONUS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
 bonus: $(OBJS_BONUS) $(OBJS_REG)
-	$(MAKE) WITH_BONUS=1
+	@$(MAKE) WITH_BONUS=1
 
 .PHONY: all clean fclean re bonus

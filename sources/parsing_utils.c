@@ -6,7 +6,7 @@
 /*   By: cherrewi <cherrewi@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/20 17:12:40 by cherrewi      #+#    #+#                 */
-/*   Updated: 2023/04/10 15:16:36 by cherrewi      ########   odam.nl         */
+/*   Updated: 2023/04/10 21:03:50 by cherrewi      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	update_open_quote_status(t_separator_state *state, char c)
 		if (state->open_dquote == true)
 			state->open_dquote = false;
 		else
-		{				
+		{
 			if (state->prev_space == true)
 				state->open_dquote = true;
 		}
@@ -50,7 +50,7 @@ bool	is_trail_space(char *str, size_t index)
 		if (!ft_isspace(str[index + i]))
 			return (false);
 		i++;
-	}	
+	}
 	return (true);
 }
 
@@ -87,7 +87,7 @@ bool	is_separator_space(char *str, size_t index)
 	return (!(state.prev_space || state.open_squote || state.open_dquote));
 }
 
-/* 
+/*
 separates words based on spaces
 ignores spaces within single or double quotes
 */
@@ -96,7 +96,7 @@ size_t	count_words(char *str)
 	size_t	word_count;
 	size_t	i;
 
-	if (*str == '\0' || is_trail_space(str, 0))
+	if (str == NULL || *str == '\0' || is_trail_space(str, 0))
 		return (0);
 	word_count = 1;
 	i = 0;
@@ -111,7 +111,7 @@ size_t	count_words(char *str)
 
 /*
 Trims a pair of single or double quotes from a string.
-NOTE: assumes the imput string is malloc-ed!
+NOTE: assumes the imput string is malloced!
 If quotes need to be trimmed, the original string is freed 
 and the return string is newly malloced
 */
